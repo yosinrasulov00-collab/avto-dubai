@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum CarStatus {
+  AVAILABLE
+  SOLD
+}
+
+enum OrderStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Car {
+  id           String    @id @default(cuid())
+  slug         String    @unique
+  brand        String
+  model        String
+  title        String
+  price        Int
+  currency     String    @default("USD")
+  year         Int
+  mileage      Int
+  color        String
+  engine       String
+  transmission String
+  fuelType     String
+  description  String
+  status       CarStatus @default(AVAILABLE)
+  images       Json      @default("[]")
+  featured     Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  orders       Order[]
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  carId     String?
+  car       Car?        @relation(fields: [carId], references: [id], onDelete: SetNull)
+  name      String
+  phone     String
+  email     String?
+  message   String?
+  status    OrderStatus @default(NEW)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String
+  imageUrl  String
+  videoUrl  String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
