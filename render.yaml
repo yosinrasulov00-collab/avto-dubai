@@ -4,7 +4,7 @@ services:
     runtime: node
     rootDir: backend
     plan: free
-    buildCommand: npm install --include=dev && npx prisma generate && npm run build && npx prisma db push && npm run db:seed
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm install && npx prisma generate && npm run build && npx prisma db push && npm run db:seed
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
@@ -15,21 +15,21 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        sync: false
+        value: https://avto-dubai-site.onrender.com
 
   - type: web
     name: avto-dubai-site
     runtime: node
     rootDir: frontend
     plan: free
-    buildCommand: npm install && npm run build
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: NEXT_PUBLIC_API_URL
-        sync: false
+        value: https://avto-dubai-khori-api.onrender.com/api
       - key: NEXT_PUBLIC_SITE_URL
-        sync: false
+        value: https://avto-dubai-site.onrender.com
       - key: BACKEND_URL
-        sync: false
+        value: https://avto-dubai-khori-api.onrender.com
