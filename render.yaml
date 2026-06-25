@@ -4,7 +4,7 @@ services:
     runtime: node
     rootDir: backend
     plan: free
-    buildCommand: npm install && npx prisma generate && npm run build && npx prisma db push && npm run db:seed
+    buildCommand: npm install --include=dev && npx prisma generate && npm run build && npx prisma db push && npm run db:seed
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
@@ -16,5 +16,20 @@ services:
         generateValue: true
       - key: FRONTEND_URL
         sync: false
-      - key: PORT
-        value: 4000
+
+  - type: web
+    name: avto-dubai-site
+    runtime: node
+    rootDir: frontend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false
+      - key: BACKEND_URL
+        sync: false
