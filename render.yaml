@@ -4,8 +4,8 @@ services:
     runtime: node
     rootDir: backend
     plan: free
-    buildCommand: NPM_CONFIG_PRODUCTION=false npm install && npx prisma generate && npm run build
-    startCommand: npx prisma db push && npm run db:seed && npm start
+    buildCommand: NPM_CONFIG_PRODUCTION=false npm install && npx prisma generate
+    startCommand: npx prisma db push && npm run db:seed && npx tsx src/index.ts
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
