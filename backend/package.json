@@ -10,7 +10,7 @@
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
     "db:setup": "prisma db push && tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "render:start": "node scripts/render-start.cjs"
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
