@@ -15,7 +15,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: FRONTEND_URL
-        value: https://avto-dubai-site.onrender.com
+        value: https://avtodubaikhori.com
 
   - type: web
     name: avto-dubai-site
@@ -30,6 +30,6 @@ services:
       - key: NEXT_PUBLIC_API_URL
         value: https://avto-dubai-khori-api.onrender.com/api
       - key: NEXT_PUBLIC_SITE_URL
-        value: https://avto-dubai-site.onrender.com
+        value: https://avtodubaikhori.com
       - key: BACKEND_URL
         value: https://avto-dubai-khori-api.onrender.com
